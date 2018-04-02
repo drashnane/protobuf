@@ -239,8 +239,8 @@ void MessageGenerator::Generate(io::Printer* printer) {
       vars,
       "#region Nested types\n"
       "/// <summary>Container for nested types declared in the $class_name$ message type.</summary>\n");
-    WriteGeneratedCodeAttributes(printer);
-    printer->Print("public static partial class Types {\n");
+    //WriteGeneratedCodeAttributes(printer);
+   // printer->Print("public static partial class Types {\n");
     printer->Indent();
     for (int i = 0; i < descriptor_->enum_type_count(); i++) {
       EnumGenerator enumGenerator(descriptor_->enum_type(i), this->options());
@@ -255,9 +255,11 @@ void MessageGenerator::Generate(io::Printer* printer) {
       }
     }
     printer->Outdent();
-    printer->Print("}\n"
+    /*printer->Print("}\n"
                    "#endregion\n"
-                   "\n");
+                   "\n");*/
+	printer->Print("#endregion\n"
+		"\n");
   }
 
   printer->Outdent();

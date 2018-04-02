@@ -42,7 +42,7 @@ namespace compiler {
 namespace csharp {
 
 // TODO(jonskeet): Refactor repeated field support; all the implementations are *really* similar. We
-// should probably have a RepeatedFieldGeneratorBase.
+// should probably have a System.Collections.Generic.ListGeneratorBase.
 class RepeatedEnumFieldGenerator : public FieldGeneratorBase {
  public:
   RepeatedEnumFieldGenerator(const FieldDescriptor* descriptor,

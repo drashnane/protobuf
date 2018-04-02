@@ -80,7 +80,7 @@ std::string GetFieldName(const FieldDescriptor* descriptor);
 
 std::string GetFieldConstantName(const FieldDescriptor* field);
 
-std::string GetPropertyName(const FieldDescriptor* descriptor);
+std::string GetPropertyName(const FieldDescriptor* descriptor, bool checkPreserved = true);
 
 int GetFixedSize(FieldDescriptor::Type type);
 

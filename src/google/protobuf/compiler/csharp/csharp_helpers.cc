@@ -60,7 +60,6 @@ namespace google {
 namespace protobuf {
 namespace compiler {
 namespace csharp {
-
 CSharpType GetCSharpType(FieldDescriptor::Type type) {
   switch (type) {
     case FieldDescriptor::TYPE_INT32:
@@ -106,7 +105,6 @@ CSharpType GetCSharpType(FieldDescriptor::Type type) {
   GOOGLE_LOG(FATAL)<< "Can't get here.";
   return (CSharpType) -1;
 }
-
 std::string StripDotProto(const std::string& proto_file) {
   int lastindex = proto_file.find_last_of(".");
   return proto_file.substr(0, lastindex);
@@ -138,41 +136,42 @@ std::string GetReflectionClassUnqualifiedName(const FileDescriptor* descriptor) 
 std::string UnderscoresToCamelCase(const std::string& input,
                                    bool cap_next_letter,
                                    bool preserve_period) {
-  string result;
-  // Note:  I distrust ctype.h due to locales.
-  for (int i = 0; i < input.size(); i++) {
-    if ('a' <= input[i] && input[i] <= 'z') {
-      if (cap_next_letter) {
-        result += input[i] + ('A' - 'a');
-      } else {
-        result += input[i];
-      }
-      cap_next_letter = false;
-    } else if ('A' <= input[i] && input[i] <= 'Z') {
-      if (i == 0 && !cap_next_letter) {
-        // Force first letter to lower-case unless explicitly told to
-        // capitalize it.
-        result += input[i] + ('a' - 'A');
-      } else {
-        // Capital letters after the first are left as-is.
-        result += input[i];
-      }
-      cap_next_letter = false;
-    } else if ('0' <= input[i] && input[i] <= '9') {
-      result += input[i];
-      cap_next_letter = true;
-    } else {
-      cap_next_letter = true;
-      if (input[i] == '.' && preserve_period) {
-        result += '.';
-      }
-    }
-  }
-  // Add a trailing "_" if the name should be altered.
-  if (input[input.size() - 1] == '#') {
-    result += '_';
-  }
-  return result;
+	return input;
+  //string result;
+  //// Note:  I distrust ctype.h due to locales.
+  //for (int i = 0; i < input.size(); i++) {
+  //  if ('a' <= input[i] && input[i] <= 'z') {
+  //    if (cap_next_letter) {
+  //      result += input[i] + ('A' - 'a');
+  //    } else {
+  //      result += input[i];
+  //    }
+  //    cap_next_letter = false;
+  //  } else if ('A' <= input[i] && input[i] <= 'Z') {
+  //    if (i == 0 && !cap_next_letter) {
+  //      // Force first letter to lower-case unless explicitly told to
+  //      // capitalize it.
+  //      result += input[i] + ('a' - 'A');
+  //    } else {
+  //      // Capital letters after the first are left as-is.
+  //      result += input[i];
+  //    }
+  //    cap_next_letter = false;
+  //  } else if ('0' <= input[i] && input[i] <= '9') {
+  //    result += input[i];
+  //    cap_next_letter = true;
+  //  } else {
+  //    cap_next_letter = true;
+  //    if (input[i] == '.' && preserve_period) {
+  //      result += '.';
+  //    }
+  //  }
+  //}
+  //// Add a trailing "_" if the name should be altered.
+  //if (input[input.size() - 1] == '#') {
+  //  result += '_';
+  //}
+  //return result;
 }
 
 std::string UnderscoresToPascalCase(const std::string& input) {
@@ -267,14 +266,15 @@ std::string TryRemovePrefix(const std::string& prefix, const std::string& value)
 // For example, an enum called Color with a value of COLOR_BLUE should
 // result in an enum value in C# called just Blue
 std::string GetEnumValueName(const std::string& enum_name, const std::string& enum_value_name) {
-  std::string stripped = TryRemovePrefix(enum_name, enum_value_name);
-  std::string result = ShoutyToPascalCase(stripped);
-  // Just in case we have an enum name of FOO and a value of FOO_2... make sure the returned
-  // string is a valid identifier.
-  if (ascii_isdigit(result[0])) {
-    result = "_" + result;
-  }
-  return result;
+	return "@" + enum_value_name;
+  //std::string stripped = TryRemovePrefix(enum_name, enum_value_name);
+  //std::string result = ShoutyToPascalCase(stripped);
+  //// Just in case we have an enum name of FOO and a value of FOO_2... make sure the returned
+  //// string is a valid identifier.
+  //if (ascii_isdigit(result[0])) {
+  //  result = "_" + result;
+  //}
+  //return result;
 }
 
 std::string ToCSharpName(const std::string& name, const FileDescriptor* file) {
@@ -290,7 +290,7 @@ std::string ToCSharpName(const std::string& name, const FileDescriptor* file) {
     // the C# namespace.
     classname = name.substr(file->package().size() + 1);
   }
-  result += StringReplace(classname, ".", ".Types.", true);
+  result += StringReplace(classname, ".", ".", true);
   return "global::" + result;
 }
 
@@ -323,10 +323,10 @@ std::string GetFieldName(const FieldDescriptor* descriptor) {
 }
 
 std::string GetFieldConstantName(const FieldDescriptor* field) {
-  return GetPropertyName(field) + "FieldNumber";
+  return GetPropertyName(field, false) + "FieldNumber";
 }
 
-std::string GetPropertyName(const FieldDescriptor* descriptor) {
+std::string GetPropertyName(const FieldDescriptor* descriptor, bool checkPreserved) {
   // TODO(jtattermusch): consider introducing csharp_property_name field option
   std::string property_name = UnderscoresToPascalCase(GetFieldName(descriptor));
   // Avoid either our own type name or reserved names. Note that not all names
@@ -338,6 +338,8 @@ std::string GetPropertyName(const FieldDescriptor* descriptor) {
       || property_name == "Descriptor") {
     property_name += "_";
   }
+  if (checkPreserved)
+	  property_name = "@" + property_name;
   return property_name;
 }
 
