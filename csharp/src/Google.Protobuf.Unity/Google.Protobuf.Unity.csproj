@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6E0595A2-E075-44C3-A10A-9FA781C45CF5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Google.Protobuf.Unity</RootNamespace>
+    <AssemblyName>Google.Protobuf.Unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <BaseDirectory>..\Google.Protobuf</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>..\Google.Protobuf\obj\Debug</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants>TRACE;RELEASE;NET35</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <IntermediateOutputPath>..\Google.Protobuf\obj\Release</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Google.Protobuf\ByteArray.cs" />
+    <Compile Include="..\Google.Protobuf\ByteString.cs" />
+    <Compile Include="..\Google.Protobuf\CodedInputStream.cs" />
+    <Compile Include="..\Google.Protobuf\CodedOutputStream.ComputeSize.cs" />
+    <Compile Include="..\Google.Protobuf\CodedOutputStream.cs" />
+    <Compile Include="..\Google.Protobuf\FieldCodec.cs" />
+    <Compile Include="..\Google.Protobuf\FrameworkPortability.cs" />
+    <Compile Include="..\Google.Protobuf\ICustomDiagnosticMessage.cs" />
+    <Compile Include="..\Google.Protobuf\IDeepCloneable.cs" />
+    <Compile Include="..\Google.Protobuf\IMessage.cs" />
+    <Compile Include="..\Google.Protobuf\InvalidJsonException.cs" />
+    <Compile Include="..\Google.Protobuf\InvalidProtocolBufferException.cs" />
+    <Compile Include="..\Google.Protobuf\JsonFormatter.cs" />
+    <Compile Include="..\Google.Protobuf\JsonParser.cs" />
+    <Compile Include="..\Google.Protobuf\JsonToken.cs" />
+    <Compile Include="..\Google.Protobuf\JsonTokenizer.cs" />
+    <Compile Include="..\Google.Protobuf\LimitedInputStream.cs" />
+    <Compile Include="..\Google.Protobuf\MessageExtensions.cs" />
+    <Compile Include="..\Google.Protobuf\MessageParser.cs" />
+    <Compile Include="..\Google.Protobuf\ProtoPreconditions.cs" />
+    <Compile Include="..\Google.Protobuf\UnknownField.cs" />
+    <Compile Include="..\Google.Protobuf\UnknownFieldSet.cs" />
+    <Compile Include="..\Google.Protobuf\WireFormat.cs" />
+    <Compile Include="..\Google.Protobuf\Collections\Lists.cs" />
+    <Compile Include="..\Google.Protobuf\Collections\MapField.cs" />
+    <Compile Include="..\Google.Protobuf\Collections\ProtobufEqualityComparers.cs" />
+    <Compile Include="..\Google.Protobuf\Collections\ReadOnlyDictionary.cs" />
+    <Compile Include="..\Google.Protobuf\Collections\RepeatedField.cs" />
+    <Compile Include="..\Google.Protobuf\Compatibility\MethodInfoExtensions.cs" />
+    <Compile Include="..\Google.Protobuf\Compatibility\PropertyInfoExtensions.cs" />
+    <Compile Include="..\Google.Protobuf\Compatibility\StreamExtensions.cs" />
+    <Compile Include="..\Google.Protobuf\Compatibility\TypeExtensions.cs" />
+    <Compile Include="..\Google.Protobuf\Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\CustomOptions.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\Descriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\DescriptorBase.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\DescriptorPool.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\DescriptorUtil.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\DescriptorValidationException.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\EnumDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\EnumValueDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\FieldAccessorBase.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\FieldDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\FieldType.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\FileDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\GeneratedClrTypeInfo.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\IDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\IFieldAccessor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\MapFieldAccessor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\MessageDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\MethodDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\OneofAccessor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\OneofDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\OriginalNameAttribute.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\PackageDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\PartialClasses.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\ReflectionUtil.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\RepeatedFieldAccessor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\ServiceDescriptor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\SingleFieldAccessor.cs" />
+    <Compile Include="..\Google.Protobuf\Reflection\TypeRegistry.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Any.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\AnyPartial.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Api.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Duration.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\DurationPartial.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Empty.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\FieldMask.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\FieldMaskPartial.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\SourceContext.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Struct.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\TimeExtensions.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Timestamp.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\TimestampPartial.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Type.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\ValuePartial.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\Wrappers.cs" />
+    <Compile Include="..\Google.Protobuf\WellKnownTypes\WrappersPartial.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

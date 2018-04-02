@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Protobuf.Conformance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Protobuf.JsonDump", "Google.Protobuf.JsonDump\Google.Protobuf.JsonDump.csproj", "{9695E08F-9829-497D-B95C-B38F28D48690}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Google.Protobuf.Unity", "Google.Protobuf.Unity\Google.Protobuf.Unity.csproj", "{6E0595A2-E075-44C3-A10A-9FA781C45CF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{9695E08F-9829-497D-B95C-B38F28D48690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9695E08F-9829-497D-B95C-B38F28D48690}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9695E08F-9829-497D-B95C-B38F28D48690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E0595A2-E075-44C3-A10A-9FA781C45CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E0595A2-E075-44C3-A10A-9FA781C45CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E0595A2-E075-44C3-A10A-9FA781C45CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E0595A2-E075-44C3-A10A-9FA781C45CF5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

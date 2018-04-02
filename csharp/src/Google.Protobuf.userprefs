@@ -1,0 +1,19 @@
+﻿<Properties StartupConfiguration="{AFB63919-1E05-43B4-802A-8FB8C9B2F463}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Google.Protobuf/Reflection/ReflectionUtil.cs">
+    <Files>
+      <File FileName="Google.Protobuf/ByteString.cs" Line="172" Column="9" />
+      <File FileName="Google.Protobuf/Reflection/MessageDescriptor.cs" Line="1" Column="1" />
+      <File FileName="Google.Protobuf/Compatibility/MethodInfoExtensions.cs" Line="47" Column="7" />
+      <File FileName="Google.Protobuf/Collections/MapField.cs" Line="99" Column="17" />
+      <File FileName="Google.Protobuf/FrameworkPortability.cs" Line="34" Column="19" />
+      <File FileName="Google.Protobuf/Reflection/ReflectionUtil.cs" Line="38" Column="7" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.AddressBook PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>
