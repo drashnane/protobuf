@@ -111,7 +111,6 @@ void ReflectionClassGenerator::WriteIntroduction(io::Printer* printer) {
 		"#pragma warning disable 1591, 0612, 3021\n"
 		"#region Designer generated code\n"
 		"\n"
-		"using Coolfish.System;\n"
     "using pb = global::Google.Protobuf;\n"
     "using pbc = global::Google.Protobuf.Collections;\n"
     "using pbr = global::Google.Protobuf.Reflection;\n"

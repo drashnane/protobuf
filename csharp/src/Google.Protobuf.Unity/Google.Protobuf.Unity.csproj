@@ -107,6 +107,7 @@
     <Compile Include="..\Google.Protobuf\WellKnownTypes\ValuePartial.cs" />
     <Compile Include="..\Google.Protobuf\WellKnownTypes\Wrappers.cs" />
     <Compile Include="..\Google.Protobuf\WellKnownTypes\WrappersPartial.cs" />
+    <Compile Include="..\Google.Protobuf\ObjectPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

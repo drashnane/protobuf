@@ -45,15 +45,15 @@ using Google.Protobuf.Compatibility;
 
 namespace Google.Protobuf
 {
-    /// <summary>
-    /// Immutable array of bytes.
-    /// </summary>
-    public sealed class ByteString : IEnumerable<byte>, IEquatable<ByteString>
+    public sealed class ByteString : IEnumerable<byte>, IEquatable<ByteString>, IPoolItem
     {
         private static readonly ByteString empty = new ByteString(new byte[0]);
 
         private readonly byte[] bytes;
 
+        public static IStreamPool streamPool;
+        private IStreamPoolItem poolItem;
+        private int length = -1;
         /// <summary>
         /// Unsafe operations that can cause IO Failure and/or other catestrophic side-effects.
         /// </summary>
@@ -93,8 +93,14 @@ namespace Google.Protobuf
         private ByteString(byte[] bytes)
         {
             this.bytes = bytes;
+            length = -1;
         }
 
+        public ByteString(byte[] bytes, int length)
+        {
+            this.bytes = bytes;
+            this.length = length;
+        }
         /// <summary>
         /// Returns an empty ByteString.
         /// </summary>
@@ -108,7 +114,12 @@ namespace Google.Protobuf
         /// </summary>
         public int Length
         {
-            get { return bytes.Length; }
+            get
+            {
+                if (length < 0)
+                    return bytes.Length;
+                return length;
+            }
         }
 
         /// <summary>
@@ -117,6 +128,10 @@ namespace Google.Protobuf
         public bool IsEmpty
         {
             get { return Length == 0; }
+        }
+        public void Clear()
+        {
+            length = 0;
         }
 
         /// <summary>
@@ -128,7 +143,10 @@ namespace Google.Protobuf
         {
             return (byte[]) bytes.Clone();
         }
-
+        public byte[] GetBuffer()
+        {
+            return bytes;
+        }
         /// <summary>
         /// Converts this <see cref="ByteString"/> into a standard base64 representation.
         /// </summary>
@@ -169,7 +187,10 @@ namespace Google.Protobuf
 #endif
             return AttachBytes(bytes);
         }
-
+        public static ByteString FromBytes(byte[] bytes, int length)
+        {
+            return new ByteString(bytes, length);
+        }
 #if !NET35
         /// <summary>
         /// Constructs a <see cref="ByteString"/> from data in the given stream, asynchronously.
@@ -208,17 +229,32 @@ namespace Google.Protobuf
         {
             return new ByteString((byte[]) bytes.Clone());
         }
-
         /// <summary>
         /// Constructs a <see cref="ByteString" /> from a portion of a byte array.
         /// </summary>
         public static ByteString CopyFrom(byte[] bytes, int offset, int count)
         {
-            byte[] portion = new byte[count];
-            ByteArray.Copy(bytes, offset, portion, 0, count);
-            return new ByteString(portion);
+            if (s_streamPool != null)
+            {
+                var item = s_streamPool.Get(bytes, offset, count);
+                var byteString = new ByteString(item.GetBuffer(), item.GetLength());
+                byteString.poolItem = item;
+                return byteString;
+            }
+            else
+            {
+                byte[] portion = new byte[count];
+                ByteArray.Copy(bytes, offset, portion, 0, count);
+                return new ByteString(portion);
+            }
         }
-
+        public void ReleasePool()
+        {
+            if(s_streamPool != null && poolItem != null)
+            {
+                s_streamPool.Release(poolItem);
+            }
+        }
         /// <summary>
         /// Creates a new <see cref="ByteString" /> by encoding the specified text with
         /// the given encoding.
@@ -255,7 +291,7 @@ namespace Google.Protobuf
         /// <returns>The result of decoding the binary data with the given decoding.</returns>
         public string ToString(Encoding encoding)
         {
-            return encoding.GetString(bytes, 0, bytes.Length);
+            return encoding.GetString(bytes, 0,Length);
         }
 
         /// <summary>
@@ -314,7 +350,7 @@ namespace Google.Protobuf
             {
                 return false;
             }
-            if (lhs.bytes.Length != rhs.bytes.Length)
+            if (lhs.Length != rhs.Length)
             {
                 return false;
             }
@@ -379,7 +415,7 @@ namespace Google.Protobuf
         /// </summary>
         internal void WriteRawBytesTo(CodedOutputStream outputStream)
         {
-            outputStream.WriteRawBytes(bytes, 0, bytes.Length);
+            outputStream.WriteRawBytes(bytes, 0, Length);
         }
 
         /// <summary>
@@ -387,7 +423,7 @@ namespace Google.Protobuf
         /// </summary>
         public void CopyTo(byte[] array, int position)
         {
-            ByteArray.Copy(bytes, 0, array, position, bytes.Length);
+            ByteArray.Copy(bytes, 0, array, position, Length);
         }
 
         /// <summary>
@@ -395,7 +431,7 @@ namespace Google.Protobuf
         /// </summary>
         public void WriteTo(Stream outputStream)
         {
-            outputStream.Write(bytes, 0, bytes.Length);
+            outputStream.Write(bytes, 0, Length);
         }
     }
 }

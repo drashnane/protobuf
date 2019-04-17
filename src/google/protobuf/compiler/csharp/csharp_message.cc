@@ -112,7 +112,7 @@ void MessageGenerator::Generate(io::Printer* printer) {
 
   printer->Print(
     vars,
-    "$access_level$ sealed partial class $class_name$ : pb::IMessage<$class_name$> {\n");
+    "$access_level$ sealed partial class $class_name$ : pb::IMessage<$class_name$> ,pb::IPoolItem{\n");
   printer->Indent();
 
   // All static fields and properties
@@ -187,7 +187,27 @@ void MessageGenerator::Generate(io::Printer* printer) {
     generator->GenerateMembers(printer);
     printer->Print("\n");
   }
+  printer->Print("public void Clear()\n{\n");
+  for (int i = 0; i < descriptor_->field_count(); i++)
+  {
+	  const FieldDescriptor* fieldDescriptor = descriptor_->field(i);
+	  if (fieldDescriptor->is_repeated() || fieldDescriptor->type() == FieldDescriptor::Type::TYPE_MESSAGE || fieldDescriptor->type() == FieldDescriptor::Type::TYPE_BYTES)
+	  {
+		  printer->Print(" if($field_name$_ != null)$field_name$_.Clear();\n", "field_name", fieldDescriptor->name());
+	  }
+	  else if (fieldDescriptor->type() == FieldDescriptor::Type::TYPE_ENUM)
+	  {
+		  printer->Print(
+			  " $field_name$_ = $field_type$.$default_value$;\n", "field_type", GetClassName(fieldDescriptor->enum_type()), "field_name", fieldDescriptor->name(), "default_value", fieldDescriptor->default_value_enum()->name());
+	  }
+	  else
+	  {
+		  printer->Print(
+			  " $field_name$_ = $default_value$;\n", "field_name", fieldDescriptor->name(),"default_value", fieldDescriptor->GetDefaultValue());
+	  }
+  }
 
+  printer->Print("}\n");
   // oneof properties
   for (int i = 0; i < descriptor_->oneof_decl_count(); i++) {
     vars["name"] = UnderscoresToCamelCase(descriptor_->oneof_decl(i)->name(), false);

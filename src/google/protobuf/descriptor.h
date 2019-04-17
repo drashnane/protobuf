@@ -716,7 +716,9 @@ class LIBPROTOBUF_EXPORT FieldDescriptor {
   // |*out_location| unchanged iff location information was not available.
   bool GetSourceLocation(SourceLocation* out_location) const;
 
- private:
+ string GetDefaultValue() const;
+ 
+private:
   typedef FieldOptions OptionsType;
 
   // Allows access to GetLocationPath for annotations.

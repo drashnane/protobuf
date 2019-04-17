@@ -1955,7 +1955,43 @@ bool DescriptorPool::TryFindExtensionInFallbackDatabase(
 bool FieldDescriptor::is_map_message_type() const {
   return message_type_->options().map_entry();
 }
-
+string FieldDescriptor::GetDefaultValue() const
+{
+	switch (cpp_type()) {
+	case CPPTYPE_INT32:
+		return SimpleItoa(default_value_int32());
+		break;
+	case CPPTYPE_INT64:
+		return SimpleItoa(default_value_int64());
+		break;
+	case CPPTYPE_UINT32:
+		return SimpleItoa(default_value_uint32());
+		break;
+	case CPPTYPE_UINT64:
+		return SimpleItoa(default_value_uint64());
+		break;
+	case CPPTYPE_FLOAT:
+		return SimpleFtoa(default_value_float());
+		break;
+	case CPPTYPE_DOUBLE:
+		return SimpleDtoa(default_value_double());
+		break;
+	case CPPTYPE_BOOL:
+		return default_value_bool() ? "true" : "false";
+		break;
+	case CPPTYPE_STRING:
+			return "\"" + CEscape(default_value_string()) + "\"";
+		break;
+	case CPPTYPE_ENUM:
+		return default_value_enum()->name();
+		break;
+	case CPPTYPE_MESSAGE:
+		GOOGLE_LOG(DFATAL) << "Messages can't have default values!";
+		break;
+	}
+	GOOGLE_LOG(FATAL) << "Can't get here: failed to get default value as string";
+	return "";
+}
 string FieldDescriptor::DefaultValueAsString(bool quote_string_type) const {
   GOOGLE_CHECK(has_default_value()) << "No default value";
   switch (cpp_type()) {

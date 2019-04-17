@@ -148,6 +148,11 @@ namespace Google.Protobuf.WellKnownTypes {
       value_ = other.value_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
+    public void Clear()
+    {
+      typeUrl_ = "";
+      if(value_ != null)value_.Clear();
+    }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Any Clone() {

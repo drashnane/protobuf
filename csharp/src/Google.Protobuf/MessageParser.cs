@@ -198,7 +198,8 @@ namespace Google.Protobuf
         // The current implementation avoids a virtual method call and a cast, which *may* be significant in some cases.
         // Benchmarking work is required to measure the significance - but it's only a few lines of code in any case.
         // The API wouldn't change anyway - just the implementation - so this work can be deferred.
-        private readonly Func<T> factory; 
+        private readonly Func<T> factory;
+        public static IObjectPool<T> pool;
 
         /// <summary>
         /// Creates a new parser.
@@ -223,7 +224,10 @@ namespace Google.Protobuf
         /// <returns>An empty message.</returns>
         internal new T CreateTemplate()
         {
-            return factory();
+            if (pool != null)
+                return pool.Get();
+            else
+                return factory();
         }
 
         /// <summary>
