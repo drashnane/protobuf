@@ -51,7 +51,7 @@ namespace Google.Protobuf
 
         private readonly byte[] bytes;
 
-        public static IStreamPool streamPool;
+        public static IStreamPool s_streamPool;
         private IStreamPoolItem poolItem;
         private int length = -1;
         /// <summary>
